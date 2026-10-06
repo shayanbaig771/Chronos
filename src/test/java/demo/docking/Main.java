@@ -1,6 +1,8 @@
 package demo.docking;
 
 import chronos.swing.ModalDialog;
+import chronos.swing.ToolWindowBar;
+import chronos.swing.ToolWindowDock;
 import chronos.swing.ToolWindowTab;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -21,11 +23,8 @@ class Main {
             JFrame frame = new JFrame("Docking Demo");
             frame.setLayout(new BorderLayout());
 
-            JPanel contentPane = new JPanel();
-            contentPane.setLayout(new BorderLayout());
+            ToolWindowDock dock = new ToolWindowDock();
             {
-                JPanel panel = new JPanel();
-                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
                 ToolWindowTab tab = new ToolWindowTab("Synthesis");
 
                 tab.addActionListener(e -> {
@@ -41,44 +40,28 @@ class Main {
                     dialog.setVisible(true);
                 });
 
-                panel.add(tab);
-                panel.add(new ToolWindowTab("Compilation"));
+                ToolWindowBar left = dock.getLeft();
+                left.addTab(tab);
+                left.addTab(new ToolWindowTab("Compilation"));
 
-                contentPane.add(panel, BorderLayout.WEST);
 
             }
 
 
             {
-                JPanel panel = new JPanel();
-                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                ToolWindowBar right = dock.getRight();
 
-                panel.add(new ToolWindowTab("Synthesis"));
-                panel.add(new ToolWindowTab("Compilation"));
+                right.addTab(new ToolWindowTab("Hello"));
+                right.addTab(new ToolWindowTab("World"));
 
-                contentPane.add(panel, BorderLayout.EAST);
 
-            }
-
-            {
-                JPanel panel = new JPanel();
-                panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-                JProgressBar progressBar = new JProgressBar();
-
-                progressBar.setIndeterminate(true);
-                progressBar.setMinimum(0);
-                progressBar.setMaximum(100);
-                progressBar.setValue(50);
-                panel.add(progressBar);
-                contentPane.add(panel, BorderLayout.SOUTH);
 
             }
 
-            contentPane.setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
-            frame.setContentPane(contentPane);
+            frame.setContentPane(dock);
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(640, 480);
+            frame.setSize(1200, 800);
             frame.setVisible(true);
         });
 

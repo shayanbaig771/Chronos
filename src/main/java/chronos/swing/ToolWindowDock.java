@@ -1,0 +1,26 @@
+package chronos.swing;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ToolWindowDock extends JPanel {
+    private ToolWindowBar left, right;
+    public ToolWindowDock() {
+        setLayout(new BorderLayout());
+        left = new ToolWindowBar();
+        right = new ToolWindowBar();
+        add(left, BorderLayout.WEST);
+        add(right, BorderLayout.EAST);
+        setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
+
+
+    }
+
+    public ToolWindowBar getLeft() {
+        return left;
+    }
+
+    public ToolWindowBar getRight() {
+        return right;
+    }
+}

@@ -3,6 +3,7 @@ package demo.font;
 import chronos.swing.FontComboBox;
 import chronos.swing.ModalDialog;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.util.HiDPIUtils;
 import demo.LoremIpsum;
 
 import javax.swing.*;

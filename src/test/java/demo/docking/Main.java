@@ -1,11 +1,7 @@
 package demo.docking;
 
-import chronos.swing.ModalDialog;
-import chronos.swing.ToolWindowBar;
-import chronos.swing.ToolWindowDock;
-import chronos.swing.ToolWindowTab;
+import chronos.swing.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import demo.LoremIpsum;
 
@@ -13,50 +9,67 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Path;
 
 class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            FlatDarculaLaf.setup();
+            //FlatDarculaLaf.setup();
+
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (UnsupportedLookAndFeelException e) {
+                throw new RuntimeException(e);
+            }
+
 
             JFrame frame = new JFrame("Docking Demo");
             frame.setLayout(new BorderLayout());
 
             ToolWindowDock dock = new ToolWindowDock();
             {
-                ToolWindowTab tab = new ToolWindowTab("Synthesis");
+                ToolWindow win1 = new ToolWindow("Window 1");
+                ToolWindow win2 = new ToolWindow("Window 2");
 
-                tab.addActionListener(e -> {
-                    ModalDialog dialog = new ModalDialog();
-                    dialog.showDialog(
-                            "My Dialog",
-                            true,
-                            new Dimension(600, 400),
-                            new JTextArea(LoremIpsum.LOREM_IPSUM),
-                            new JButton("OK"),
-                            new JButton("Cancel")
-                    );
-                    dialog.setVisible(true);
-                });
+                win1.setLayout(new BorderLayout());
+                win1.add(new JTextArea(LoremIpsum.LOREM_IPSUM), BorderLayout.EAST);
+
+                win2.setLayout(new BorderLayout());
+                win2.add(new JButton("Bar"), BorderLayout.EAST);
 
                 ToolWindowBar left = dock.getLeft();
-                left.addTab(tab);
-                left.addTab(new ToolWindowTab("Compilation"));
-
-
+                left.addToolWindow(win1);
+                left.addToolWindow(win2);
             }
 
 
             {
+                ToolWindow win1 = new ToolWindow("Window 1");
+                ToolWindow win2 = new ToolWindow("Window 2");
+
+                win1.setLayout(new BorderLayout());
+                JButton foo = new JButton("Foo");
+                foo.addActionListener(e -> {
+                    Path result = NativeFilePicker.showOpenFileDialog("Select a file","*.txt", "*.pdf");
+                    JOptionPane.showMessageDialog(null, "You selected: " + result);
+                });
+                win1.add(foo, BorderLayout.EAST);
+
+                win2.setLayout(new BorderLayout());
+                win2.add(new JButton("Bar"), BorderLayout.EAST);
+
                 ToolWindowBar right = dock.getRight();
-
-                right.addTab(new ToolWindowTab("Hello"));
-                right.addTab(new ToolWindowTab("World"));
-
-
-
+                right.addToolWindow(win1);
+                right.addToolWindow(win2);
             }
+
 
             frame.setContentPane(dock);
 

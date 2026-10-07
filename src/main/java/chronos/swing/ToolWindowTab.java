@@ -3,6 +3,7 @@ package chronos.swing;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
+import java.awt.datatransfer.Transferable;
 
 public class ToolWindowTab extends JButton {
     public ToolWindowTab(String text) {

@@ -7,8 +7,8 @@ public class ToolWindowDock extends JPanel {
     private ToolWindowBar left, right;
     public ToolWindowDock() {
         setLayout(new BorderLayout());
-        left = new ToolWindowBar();
-        right = new ToolWindowBar();
+        left = new ToolWindowBar(ToolWindowBar.Side.Left);
+        right = new ToolWindowBar(ToolWindowBar.Side.Right);
         add(left, BorderLayout.WEST);
         add(right, BorderLayout.EAST);
         setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));

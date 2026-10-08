@@ -9,19 +9,25 @@ import java.awt.*;
 public class ToolWindowBorder extends AbstractBorder {
     private ToolWindow toolWindow;
     private int margin = 3;
+    private int resizeMargin;
 
-    public ToolWindowBorder(ToolWindow toolWindow) {
+    public ToolWindowBorder(ToolWindow toolWindow, int resizeMargin) {
         this.toolWindow = toolWindow;
+        this.resizeMargin = resizeMargin;
+
     }
 
     @Override
     public Insets getBorderInsets(Component c) {
-        return new Insets(c.getFontMetrics(c.getFont()).getAscent() + 2 * margin, 0, 0, 0);
+        return new Insets(c.getFontMetrics(c.getFont()).getAscent() + resizeMargin + 2 * margin, resizeMargin, resizeMargin, resizeMargin);
     }
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         super.paintBorder(c, g, x, y, width, height);
+
+        Graphics2D g2d = (Graphics2D) g;
+
 
         int h = c.getFontMetrics(c.getFont()).getAscent();
         Color color1 = UIManager.getColor("InternalFrame.activeTitleBackground");
@@ -32,7 +38,7 @@ public class ToolWindowBorder extends AbstractBorder {
                 x + width, y, color2
         );
 
-        Graphics2D g2d = (Graphics2D) g;
+
         g2d.setPaint(gradient);
         g2d.fillRect(x, y, width, h + 2* margin);
 
@@ -41,9 +47,16 @@ public class ToolWindowBorder extends AbstractBorder {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON
         );
 
+        g2d.setRenderingHint(
+                RenderingHints.KEY_FRACTIONALMETRICS,
+                RenderingHints.VALUE_FRACTIONALMETRICS_ON
+        );
+
 
         g2d.setColor(Color.WHITE);
         HiDPIUtils.drawStringWithYCorrection(toolWindow, g2d, toolWindow.getName(), margin, h + margin);
 
+
     }
 }
+

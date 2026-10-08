@@ -39,8 +39,7 @@ public class ToolWindowBar extends JPanel {
         ToolWindowTab tab = toolWindow.getTab();
         toolWindows.add(toolWindow);
         tabs.add(tab);
-
-        toolWindow.setListeners(side);
+        toolWindow.setSide(side);
 
         tab.addActionListener(e -> {
             boolean opening = !toolWindow.isActive();

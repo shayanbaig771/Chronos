@@ -15,24 +15,23 @@ class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            //FlatDarculaLaf.setup();
+            FlatDarculaLaf.setup();
 
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (UnsupportedLookAndFeelException e) {
-                throw new RuntimeException(e);
-            }
 
 
             JFrame frame = new JFrame("Docking Demo");
             frame.setLayout(new BorderLayout());
 
+            JMenuBar menuBar = new JMenuBar();
+            {
+                JMenu fileMenu = new JMenu("File");
+                menuBar.add(fileMenu);
+                JMenu editMenu = new JMenu("Edit");
+                menuBar.add(editMenu);
+                JMenu viewMenu = new JMenu("View");
+                menuBar.add(viewMenu);
+                frame.setJMenuBar(menuBar);
+            }
             ToolWindowDock dock = new ToolWindowDock();
             {
                 ToolWindow win1 = new ToolWindow("Window 1");

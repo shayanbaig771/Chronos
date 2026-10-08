@@ -3,7 +3,6 @@ package chronos.swing;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Rectangle2D;
 
 import static chronos.swing.ToolWindowBar.Side.Left;
 import static chronos.swing.ToolWindowBar.Side.Right;
@@ -19,6 +18,7 @@ public class ToolWindow extends JComponent {
     private JDialog window;
     private ToolWindowBar toolWindowBar;
     private boolean isWindow;
+
 
 
     public ToolWindow(String name) {
@@ -40,29 +40,34 @@ public class ToolWindow extends JComponent {
         });
         setBorder(new ToolWindowBorder(this, resizeMargin));
 
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 if(!isWindow) {
                     if (resizeHandle.contains(e.getPoint())) {
-                        setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                         isResizing = true;
+                        setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                     }
                 }
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-                if(!isWindow) {
-                    setCursor(Cursor.getDefaultCursor());
+            public void mouseExited(MouseEvent e) {
+                if(isResizing && !SwingUtilities.isLeftMouseButton(e)) {
                     isResizing = false;
+                    setCursor(Cursor.getDefaultCursor());
                 }
             }
 
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                isResizing = false;
+                setCursor(Cursor.getDefaultCursor());
+            }
         });
 
         addMouseMotionListener(new MouseMotionAdapter() {
-
 
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -77,6 +82,8 @@ public class ToolWindow extends JComponent {
             }
         });
     }
+
+
 
     public ToolWindowBar getToolWindowBar() {
         return toolWindowBar;

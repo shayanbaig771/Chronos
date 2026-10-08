@@ -4,6 +4,7 @@ import chronos.swing.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import demo.LoremIpsum;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            FlatDarculaLaf.setup();
+            FlatMacDarkLaf.setup();
 
             JFrame frame = new JFrame("Docking Demo");
             frame.setLayout(new BorderLayout());
@@ -55,8 +56,16 @@ class Main {
                 win1.setLayout(new BorderLayout());
                 JButton foo = new JButton("Foo");
                 foo.addActionListener(e -> {
-                    Path result = NativeFilePicker.showOpenFileDialog("Select a file","*.txt", "*.pdf");
-                    JOptionPane.showMessageDialog(null, "You selected: " + result);
+                    ModalDialog dialog = new ModalDialog();
+                    dialog.showDialog(
+                            "My Dialog",
+                            true,
+                            new Dimension(600, 400),
+                            new JTextArea(LoremIpsum.LOREM_IPSUM),
+                            new JButton("OK"),
+                            new JButton("Cancel")
+                    );
+                    dialog.setVisible(true);
                 });
                 win1.add(foo, BorderLayout.EAST);
 
@@ -84,7 +93,6 @@ class Main {
 
 
 
-            /*
             {
                 ToolWindow main = new ToolWindow("South Component");
                 main.setLayout(new BorderLayout());
@@ -92,16 +100,20 @@ class Main {
                     JTabbedPane tabs = new JTabbedPane();
                     tabs.addTab("Tab 1", new JTextArea(LoremIpsum.LOREM_IPSUM));
                     tabs.addTab("Tab 2", new JTextArea(LoremIpsum.LOREM_IPSUM));
-                    main.add(tabs, BorderLayout.SOUTH);
+                    main.add(tabs, BorderLayout.CENTER);
                 }
-                dock.add(main, BorderLayout.SOUTH);
-            }*/
+
+                ToolWindowBar bottom = dock.getBottom();
+                bottom.addToolWindow(main);
+
+
+            }
 
 
             frame.setContentPane(dock);
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1200, 800);
+            frame.setSize(600, 400);
             frame.setVisible(true);
         });
 

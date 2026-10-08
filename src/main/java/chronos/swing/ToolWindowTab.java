@@ -7,11 +7,20 @@ import java.awt.event.ActionListener;
 
 public class ToolWindowTab extends JButton {
     private ActionListener openToolWindowListener;
+    private ToolWindowBar.Side side;
     public ToolWindowTab(String text) {
         super(text);
         setUI(new ChrButtonUI());
         setContentAreaFilled(false);
         setOpaque(false);
+    }
+
+    public ToolWindowBar.Side getSide() {
+        return side;
+    }
+
+    public void setSide(ToolWindowBar.Side side) {
+        this.side = side;
     }
 
     public ActionListener getOpenToolWindowListener() {
@@ -23,7 +32,7 @@ public class ToolWindowTab extends JButton {
     }
 
     private class ChrButtonUI extends BasicButtonUI {
-        private int padding = 3;
+        private int padding = 2;
 
 
         @Override
@@ -54,15 +63,20 @@ public class ToolWindowTab extends JButton {
             );
             g2d.fillRect(0, 0, c.getWidth(), c.getHeight());
             g2d.setColor(Color.WHITE);
-            g2d.rotate(Math.PI / 2);
+            if(side != ToolWindowBar.Side.Bottom)
+                g2d.rotate(Math.PI / 2);
 
             g2d.setColor(UIManager.getColor("Button.foreground"));
             if(model.isRollover()) g2d.setColor(UIManager.getColor("Button.hoverForeground"));
             if(model.isPressed() || model.isArmed())
                 g2d.setColor(UIManager.getColor("Button.pressedForeground"));
 
-            g2d.drawString(text, 4 * padding, -padding*2);
-
+            if(side != ToolWindowBar.Side.Bottom)
+                g2d.drawString(text, 4 * padding, -padding*2);
+            else {
+                FontMetrics fm = c.getFontMetrics(c.getFont());
+                g2d.drawString(text, 4 * padding, fm.getHeight());
+            }
             g2d.dispose();
         }
 
@@ -72,7 +86,13 @@ public class ToolWindowTab extends JButton {
             FontMetrics fm = c.getFontMetrics(c.getFont());
             AbstractButton button = (AbstractButton) c;
 
-            return new Dimension(fm.getHeight() + 2 * padding, fm.stringWidth(button.getText()) + 8 * padding);
+            if(side != ToolWindowBar.Side.Bottom) {
+                return new Dimension(fm.getHeight() + 2 * padding, fm.stringWidth(button.getText()) + 8 * padding);
+            }
+            else {
+                return new Dimension(fm.stringWidth(button.getText()) + 8 * padding, fm.getHeight() + 2 * padding);
+            }
+
         }
 
 

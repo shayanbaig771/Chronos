@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static chronos.swing.ToolWindowBar.Side.Left;
-import static chronos.swing.ToolWindowBar.Side.Right;
+import static chronos.swing.ToolWindowBar.Side.*;
 
 public class ToolWindow extends JComponent {
     private String name;
@@ -32,7 +31,17 @@ public class ToolWindow extends JComponent {
                 if(!isWindow) {
                     if (resizeHandle.contains(e.getPoint())) {
                         isResizing = true;
-                        setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                        {
+                            Cursor cursor = null;
+                            switch (side) {
+                                case Left -> cursor = Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR);
+                                case Right -> cursor = Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR);
+                                case Bottom -> cursor = Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR);
+                            }
+                            setCursor(cursor);
+                        }
+
+
                     }
                 }
             }
@@ -59,6 +68,7 @@ public class ToolWindow extends JComponent {
                 if(isResizing) {
                     if(side == Left) setPreferredSize(new Dimension(e.getX(), getHeight()));
                     if(side == Right) setPreferredSize(new Dimension(getWidth() - e.getX(), getHeight()));
+                    if(side == Bottom) setPreferredSize(new Dimension(getWidth(), getHeight() - e.getY()));
 
                     revalidate();
                     repaint();
@@ -131,6 +141,7 @@ public class ToolWindow extends JComponent {
 
         if(side == Left) resizeHandle.setBounds(getWidth() - resizeMargin, 0, resizeMargin, getHeight());
         else if(side == Right) resizeHandle.setBounds(0, 0, resizeMargin, getHeight());
+        else if(side == Bottom) resizeHandle.setBounds(0, 0, getWidth(), resizeMargin);
 
     }
 

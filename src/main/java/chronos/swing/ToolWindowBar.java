@@ -18,7 +18,8 @@ public class ToolWindowBar extends JPanel {
 
     public enum Side {
         Left,
-        Right
+        Right,
+        Bottom,
     }
     private Side side;
 
@@ -29,8 +30,17 @@ public class ToolWindowBar extends JPanel {
         setLayout(new BorderLayout());
         setBorder(new FlatMenuBarBorder());
         tabs = new JPanel();
-        tabs.setLayout(new BoxLayout(tabs, BoxLayout.Y_AXIS));
-        add(tabs, side == Side.Left ? BorderLayout.WEST : BorderLayout.EAST);
+        tabs.setLayout(new BoxLayout(tabs, side == Side.Bottom ? BoxLayout.X_AXIS : BoxLayout.Y_AXIS));
+
+        switch (side) {
+            case Right, Left:
+                add(tabs, side == Side.Left ? BorderLayout.WEST : BorderLayout.EAST);
+                break;
+            case Bottom:
+                add(tabs, BorderLayout.SOUTH);
+                break;
+        }
+
 
         toolWindows = new ArrayList<>();
     }
@@ -42,6 +52,7 @@ public class ToolWindowBar extends JPanel {
 
     public void removeToolWindow(ToolWindow toolWindow) {
         ToolWindowTab tab = toolWindow.getTab();
+        tab.setSide(null);
         toolWindows.remove(toolWindow);
         tabs.remove(tab);
         toolWindow.setSide(null);
@@ -54,6 +65,7 @@ public class ToolWindowBar extends JPanel {
 
     public void addToolWindow(ToolWindow toolWindow) {
         ToolWindowTab tab = toolWindow.getTab();
+        tab.setSide(side);
         toolWindow.setToolWindowBar(this);
         toolWindows.add(toolWindow);
         tabs.add(tab);

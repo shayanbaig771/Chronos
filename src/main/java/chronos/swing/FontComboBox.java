@@ -30,6 +30,8 @@ public class FontComboBox extends JComboBox<FontComboBox.Pair> {
                         g.dispose();
                     }
 
+                    Color textColor = UIManager.getColor("MenuItem.foreground");
+
                     if(width > 0 && height > 0) {
                         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
                         {
@@ -39,14 +41,12 @@ public class FontComboBox extends JComboBox<FontComboBox.Pair> {
                                     RenderingHints.KEY_TEXT_ANTIALIASING,
                                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON
                             );
-                            g2d.setRenderingHint(
-                                    RenderingHints.KEY_INTERPOLATION,
-                                    RenderingHints.VALUE_INTERPOLATION_BICUBIC
-                            );
+
                             g2d.setRenderingHint(
                                     RenderingHints.KEY_FRACTIONALMETRICS,
                                     RenderingHints.VALUE_FRACTIONALMETRICS_ON
                             );
+                            g2d.setColor(textColor);
                             g2d.drawString(font.getName(), 0, ascent);
                         }
                         images[i] = new Pair(image, font);

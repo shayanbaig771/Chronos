@@ -4,6 +4,8 @@ import com.formdev.flatlaf.ui.FlatMenuBarBorder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +41,14 @@ public class ToolWindowBar extends JPanel {
 
 
     public void removeToolWindow(ToolWindow toolWindow) {
+        ToolWindowTab tab = toolWindow.getTab();
         toolWindows.remove(toolWindow);
-        tabs.remove(toolWindow.getTab());
+        tabs.remove(tab);
+        toolWindow.setSide(null);
+        tab.removeActionListener(tab.getOpenToolWindowListener());
+        toolWindow.setActive(false);
         revalidate();
         repaint();
-        toolWindow.getTab().removeActionListener(toolWindow.getTab().getActionListeners()[0]);
 
     }
 
@@ -56,29 +61,31 @@ public class ToolWindowBar extends JPanel {
         revalidate();
         repaint();
 
-        tab.addActionListener(e -> {
-            boolean opening = !toolWindow.isActive();
-
-
-            if(opening) {
+        tab.setOpenToolWindowListener(e -> {
+            boolean shouldOpen = !toolWindow.isActive();
+            if(shouldOpen) {
                 if(activeWindow != null) {
                     remove(activeWindow);
                     activeWindow.setActive(false);
                 }
-
                 add(toolWindow, BorderLayout.CENTER);
                 activeWindow = toolWindow;
+                toolWindow.setActive(true);
             }
             else {
                 remove(activeWindow);
+                activeWindow.setActive(false);
                 activeWindow = null;
             }
-            toolWindow.setActive(opening);
+
+
             revalidate();
             repaint();
 
 
         });
+
+        tab.addActionListener(tab.getOpenToolWindowListener());
     }
 
 }

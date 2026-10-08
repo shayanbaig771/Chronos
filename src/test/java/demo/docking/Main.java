@@ -2,6 +2,7 @@ package demo.docking;
 
 import chronos.swing.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import demo.LoremIpsum;
 
@@ -16,8 +17,6 @@ class Main {
         SwingUtilities.invokeLater(() -> {
 
             FlatDarculaLaf.setup();
-
-
 
             JFrame frame = new JFrame("Docking Demo");
             frame.setLayout(new BorderLayout());
@@ -41,7 +40,7 @@ class Main {
                 win1.add(new JTextArea(LoremIpsum.LOREM_IPSUM), BorderLayout.EAST);
 
                 win2.setLayout(new BorderLayout());
-                win2.add(new JButton("Bar"), BorderLayout.EAST);
+                win2.add(new JButton("Bar"), BorderLayout.NORTH);
 
                 ToolWindowBar left = dock.getLeft();
                 left.addToolWindow(win1);
@@ -67,7 +66,36 @@ class Main {
                 ToolWindowBar right = dock.getRight();
                 right.addToolWindow(win1);
                 right.addToolWindow(win2);
+
+
             }
+
+            {
+                ToolWindow main = new ToolWindow("Center Component");
+                main.setLayout(new BorderLayout());
+                {
+                    JTabbedPane tabs = new JTabbedPane();
+                    tabs.addTab("Tab 1", new JTextArea(LoremIpsum.LOREM_IPSUM));
+                    tabs.addTab("Tab 2", new JTextArea(LoremIpsum.LOREM_IPSUM));
+                    main.add(tabs, BorderLayout.CENTER);
+                }
+                dock.add(main, BorderLayout.CENTER);
+            }
+
+
+
+            /*
+            {
+                ToolWindow main = new ToolWindow("South Component");
+                main.setLayout(new BorderLayout());
+                {
+                    JTabbedPane tabs = new JTabbedPane();
+                    tabs.addTab("Tab 1", new JTextArea(LoremIpsum.LOREM_IPSUM));
+                    tabs.addTab("Tab 2", new JTextArea(LoremIpsum.LOREM_IPSUM));
+                    main.add(tabs, BorderLayout.SOUTH);
+                }
+                dock.add(main, BorderLayout.SOUTH);
+            }*/
 
 
             frame.setContentPane(dock);

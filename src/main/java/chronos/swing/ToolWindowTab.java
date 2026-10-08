@@ -3,9 +3,10 @@ package chronos.swing;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
-import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionListener;
 
 public class ToolWindowTab extends JButton {
+    private ActionListener openToolWindowListener;
     public ToolWindowTab(String text) {
         super(text);
         setUI(new ChrButtonUI());
@@ -13,6 +14,13 @@ public class ToolWindowTab extends JButton {
         setOpaque(false);
     }
 
+    public ActionListener getOpenToolWindowListener() {
+        return openToolWindowListener;
+    }
+
+    public void setOpenToolWindowListener(ActionListener openToolWindowListener) {
+        this.openToolWindowListener = openToolWindowListener;
+    }
 
     private class ChrButtonUI extends BasicButtonUI {
         private int padding = 3;

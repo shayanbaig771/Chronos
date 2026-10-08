@@ -11,7 +11,7 @@ public class ToolWindowDock extends JPanel {
         right = new ToolWindowBar(ToolWindowBar.Side.Right);
         add(left, BorderLayout.WEST);
         add(right, BorderLayout.EAST);
-        setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
+        setBackground(UIManager.getColor("Desktop.background"));
 
 
     }

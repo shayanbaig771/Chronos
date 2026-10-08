@@ -98,7 +98,7 @@ public class ToolWindow extends JComponent {
         setActive(false);
         setBorder(null);
 
-        JDialog dialog = new JDialog();
+        JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(this));
         dialog.setTitle(name);
         dialog.add(this);
         dialog.pack();

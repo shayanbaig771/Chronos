@@ -15,6 +15,10 @@ public class ToolWindowBar extends JPanel {
     private ToolWindow activeWindow;
     private List<ToolWindow> toolWindows;
 
+    public List<ToolWindow> getToolWindows() {
+        return toolWindows;
+    }
+
 
     public enum Side {
         Left,

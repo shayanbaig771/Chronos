@@ -29,4 +29,21 @@ public class ToolWindowDock extends JPanel {
     public ToolWindowBar getBottom() {
         return bottom;
     }
+
+    public ToolWindowDockState getToolWindowDockState() {
+
+
+        ToolWindowDockState dockState = new ToolWindowDockState();
+
+        ToolWindowBar[] toolWindowBars = {left, right, bottom};
+
+        for(ToolWindowBar toolWindowBar : toolWindowBars) {
+            for(ToolWindow toolWindow : toolWindowBar.getToolWindows()) {
+
+                ToolWindowDockState.ToolWindowState toolWindowState = new ToolWindowDockState.ToolWindowState(toolWindowBar.getSide(), toolWindow.getPreferredSize());
+                dockState.getToolWindowStates().put(toolWindow.getTitle(), toolWindowState);
+            }
+        }
+        return dockState;
+    }
 }

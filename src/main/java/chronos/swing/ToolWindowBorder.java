@@ -19,6 +19,7 @@ public class ToolWindowBorder extends AbstractBorder {
 
     @Override
     public Insets getBorderInsets(Component c) {
+        if(!toolWindow.isActive()) return new Insets(0, 0, 0, 0);
         return new Insets(c.getFontMetrics(c.getFont()).getAscent() + resizeMargin + 2 * margin, resizeMargin, resizeMargin, resizeMargin);
     }
 
@@ -54,7 +55,7 @@ public class ToolWindowBorder extends AbstractBorder {
 
 
         g2d.setColor(Color.WHITE);
-        HiDPIUtils.drawStringWithYCorrection(toolWindow, g2d, toolWindow.getName(), margin, h + margin);
+        HiDPIUtils.drawStringWithYCorrection(toolWindow, g2d, toolWindow.getTitle(), margin, h + margin);
 
 
     }

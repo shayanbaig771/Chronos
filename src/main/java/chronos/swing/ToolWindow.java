@@ -157,8 +157,7 @@ public class ToolWindow extends JComponent {
         return tab;
     }
 
-    @Override
-    public String getName() {
+    public String getTitle() {
         return name;
     }
 }

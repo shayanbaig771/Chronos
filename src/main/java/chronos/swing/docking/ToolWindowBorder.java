@@ -1,4 +1,4 @@
-package chronos.swing;
+package chronos.swing.docking;
 
 import com.formdev.flatlaf.util.HiDPIUtils;
 
@@ -7,11 +7,11 @@ import javax.swing.border.AbstractBorder;
 import java.awt.*;
 
 public class ToolWindowBorder extends AbstractBorder {
-    private ToolWindow toolWindow;
+    private JToolWindow toolWindow;
     private int margin = 3;
     private int resizeMargin;
 
-    public ToolWindowBorder(ToolWindow toolWindow, int resizeMargin) {
+    public ToolWindowBorder(JToolWindow toolWindow, int resizeMargin) {
         this.toolWindow = toolWindow;
         this.resizeMargin = resizeMargin;
 

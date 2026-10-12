@@ -1,21 +1,19 @@
-package chronos.swing;
+package chronos.swing.docking;
 
 import com.formdev.flatlaf.ui.FlatMenuBarBorder;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToolWindowBar extends JPanel {
+public class JToolWindowBar extends JPanel {
 
     private JPanel tabs;
-    private ToolWindow activeWindow;
-    private List<ToolWindow> toolWindows;
+    private JToolWindow activeWindow;
+    private List<JToolWindow> toolWindows;
 
-    public List<ToolWindow> getToolWindows() {
+    public List<JToolWindow> getToolWindows() {
         return toolWindows;
     }
 
@@ -28,7 +26,7 @@ public class ToolWindowBar extends JPanel {
     private Side side;
 
 
-    public ToolWindowBar(Side side) {
+    public JToolWindowBar(Side side) {
         super();
         this.side = side;
         setLayout(new BorderLayout());
@@ -54,8 +52,8 @@ public class ToolWindowBar extends JPanel {
     }
 
 
-    public void removeToolWindow(ToolWindow toolWindow) {
-        ToolWindowTab tab = toolWindow.getTab();
+    public void removeToolWindow(JToolWindow toolWindow) {
+        JToolWindowTab tab = toolWindow.getTab();
         tab.setSide(null);
         toolWindows.remove(toolWindow);
         tabs.remove(tab);
@@ -67,8 +65,8 @@ public class ToolWindowBar extends JPanel {
 
     }
 
-    public void addToolWindow(ToolWindow toolWindow) {
-        ToolWindowTab tab = toolWindow.getTab();
+    public void addToolWindow(JToolWindow toolWindow) {
+        JToolWindowTab tab = toolWindow.getTab();
         tab.setSide(side);
         toolWindow.setToolWindowBar(this);
         toolWindows.add(toolWindow);

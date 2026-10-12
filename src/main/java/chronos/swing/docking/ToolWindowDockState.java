@@ -1,4 +1,4 @@
-package chronos.swing;
+package chronos.swing.docking;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -11,5 +11,5 @@ public class ToolWindowDockState {
         return toolWindowStates;
     }
 
-    public record ToolWindowState(ToolWindowBar.Side side, Dimension prefSize) {}
+    public record ToolWindowState(JToolWindowBar.Side side, Dimension prefSize) {}
 }

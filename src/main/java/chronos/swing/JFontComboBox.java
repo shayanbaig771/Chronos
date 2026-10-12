@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ExecutionException;
 
-public class FontComboBox extends JComboBox<FontComboBox.Pair> {
-    public FontComboBox(float size, Font... fonts) {
+public class JFontComboBox extends JComboBox<JFontComboBox.Pair> {
+    public JFontComboBox(float size, Font... fonts) {
         super();
         setRenderer(new ImageListCellRenderer());
 

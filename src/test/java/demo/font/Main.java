@@ -1,10 +1,6 @@
 package demo.font;
 
-import chronos.swing.FontComboBox;
-import chronos.swing.ModalDialog;
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.util.HiDPIUtils;
-import demo.LoremIpsum;
+import chronos.swing.JFontComboBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +23,7 @@ class Main {
 
             JFrame frame = new JFrame("Font Demo");
             frame.setLayout(new BorderLayout());
-            FontComboBox fontComboBox = new FontComboBox(16f, GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts());
+            JFontComboBox fontComboBox = new JFontComboBox(16f, GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts());
             frame.add(fontComboBox, BorderLayout.NORTH);
 
             fontComboBox.addActionListener(e -> {

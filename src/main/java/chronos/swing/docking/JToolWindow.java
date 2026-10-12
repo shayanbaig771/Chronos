@@ -1,27 +1,27 @@
-package chronos.swing;
+package chronos.swing.docking;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static chronos.swing.ToolWindowBar.Side.*;
+import static chronos.swing.docking.JToolWindowBar.Side.*;
 
-public class ToolWindow extends JComponent {
+public class JToolWindow extends JComponent {
     private String name;
-    private ToolWindowTab tab;
+    private JToolWindowTab tab;
     private boolean active;
     private int resizeMargin = 3;
-    private ToolWindowBar.Side side;
+    private JToolWindowBar.Side side;
     private Rectangle resizeHandle = new Rectangle();
     private boolean isResizing = false;
-    private ToolWindowBar toolWindowBar;
+    private JToolWindowBar toolWindowBar;
     private boolean isWindow;
 
 
 
-    public ToolWindow(String name) {
+    public JToolWindow(String name) {
         this.name = name;
-        tab = new ToolWindowTab(name);
+        tab = new JToolWindowTab(name);
         setBorder(new ToolWindowBorder(this, resizeMargin));
 
 
@@ -106,9 +106,9 @@ public class ToolWindow extends JComponent {
             @Override
             public void windowClosing(WindowEvent e) {
                 isWindow = false;
-                dialog.remove(ToolWindow.this);
-                setBorder(new ToolWindowBorder(ToolWindow.this, resizeMargin));
-                toolWindowBar.addToolWindow(ToolWindow.this);
+                dialog.remove(JToolWindow.this);
+                setBorder(new ToolWindowBorder(JToolWindow.this, resizeMargin));
+                toolWindowBar.addToolWindow(JToolWindow.this);
             }
         });
 
@@ -118,16 +118,16 @@ public class ToolWindow extends JComponent {
     }
 
 
-    public ToolWindowBar getToolWindowBar() {
+    public JToolWindowBar getToolWindowBar() {
         return toolWindowBar;
     }
 
-    public void setToolWindowBar(ToolWindowBar toolWindowBar) {
+    public void setToolWindowBar(JToolWindowBar toolWindowBar) {
         this.toolWindowBar = toolWindowBar;
     }
 
 
-    public void setSide(ToolWindowBar.Side side) {
+    public void setSide(JToolWindowBar.Side side) {
         this.side = side;
     }
 
@@ -153,7 +153,7 @@ public class ToolWindow extends JComponent {
         this.active = active;
     }
 
-    public ToolWindowTab getTab() {
+    public JToolWindowTab getTab() {
         return tab;
     }
 

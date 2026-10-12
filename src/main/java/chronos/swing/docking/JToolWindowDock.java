@@ -1,15 +1,15 @@
-package chronos.swing;
+package chronos.swing.docking;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ToolWindowDock extends JPanel {
-    private ToolWindowBar left, right, bottom;
-    public ToolWindowDock() {
+public class JToolWindowDock extends JPanel {
+    private JToolWindowBar left, right, bottom;
+    public JToolWindowDock() {
         setLayout(new BorderLayout());
-        left = new ToolWindowBar(ToolWindowBar.Side.Left);
-        right = new ToolWindowBar(ToolWindowBar.Side.Right);
-        bottom = new ToolWindowBar(ToolWindowBar.Side.Bottom);
+        left = new JToolWindowBar(JToolWindowBar.Side.Left);
+        right = new JToolWindowBar(JToolWindowBar.Side.Right);
+        bottom = new JToolWindowBar(JToolWindowBar.Side.Bottom);
         add(left, BorderLayout.WEST);
         add(right, BorderLayout.EAST);
         add(bottom, BorderLayout.SOUTH);
@@ -18,15 +18,15 @@ public class ToolWindowDock extends JPanel {
 
     }
 
-    public ToolWindowBar getLeft() {
+    public JToolWindowBar getLeft() {
         return left;
     }
 
-    public ToolWindowBar getRight() {
+    public JToolWindowBar getRight() {
         return right;
     }
 
-    public ToolWindowBar getBottom() {
+    public JToolWindowBar getBottom() {
         return bottom;
     }
 
@@ -35,10 +35,10 @@ public class ToolWindowDock extends JPanel {
 
         ToolWindowDockState dockState = new ToolWindowDockState();
 
-        ToolWindowBar[] toolWindowBars = {left, right, bottom};
+        JToolWindowBar[] toolWindowBars = {left, right, bottom};
 
-        for(ToolWindowBar toolWindowBar : toolWindowBars) {
-            for(ToolWindow toolWindow : toolWindowBar.getToolWindows()) {
+        for(JToolWindowBar toolWindowBar : toolWindowBars) {
+            for(JToolWindow toolWindow : toolWindowBar.getToolWindows()) {
 
                 ToolWindowDockState.ToolWindowState toolWindowState = new ToolWindowDockState.ToolWindowState(toolWindowBar.getSide(), toolWindow.getPreferredSize());
                 dockState.getToolWindowStates().put(toolWindow.getTitle(), toolWindowState);

@@ -3,7 +3,7 @@ package demo.nativefilepicker;
 import javax.swing.*;
 import java.nio.file.Path;
 
-import chronos.swing.NativeFilePicker;
+import chronos.swing.JNativeFilePicker;
 
 class Main {
     public static void main(String[] args) {
@@ -15,7 +15,7 @@ class Main {
             JButton openFile = new JButton("Open File");
             {
                 openFile.addActionListener(e -> {
-                    Path result = NativeFilePicker.showOpenFileDialog("Select a file","*.txt", "*.pdf");
+                    Path result = JNativeFilePicker.showOpenFileDialog("Select a file","*.txt", "*.pdf");
                     JOptionPane.showMessageDialog(null, "You selected: " + result);
                 });
                 frame.add(openFile);
@@ -24,7 +24,7 @@ class Main {
             JButton openFolder = new JButton("Open Folder");
             {
                 openFolder.addActionListener(e -> {
-                    Path result = NativeFilePicker.showSelectFolderDialog("Select a folder");
+                    Path result = JNativeFilePicker.showSelectFolderDialog("Select a folder");
                     JOptionPane.showMessageDialog(null, "You selected: " + result);
                 });
                 frame.add(openFolder);
@@ -33,7 +33,7 @@ class Main {
             JButton saveFile = new JButton("Save File");
             {
                 saveFile.addActionListener(e -> {
-                    Path result = NativeFilePicker.showSaveFileDialog("Save a file","*.txt", "*.pdf");
+                    Path result = JNativeFilePicker.showSaveFileDialog("Save a file","*.txt", "*.pdf");
                     JOptionPane.showMessageDialog(null, "You selected: " + result);
                 });
                 frame.add(saveFile);

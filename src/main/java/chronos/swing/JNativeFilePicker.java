@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 
-public class NativeFilePicker {
+public class JNativeFilePicker {
     public static Path showOpenFileDialog(String title, String... filters) {
         if(!SwingUtilities.isEventDispatchThread())
             throw new IllegalStateException("NativeFilePicker must be called on the EDT");

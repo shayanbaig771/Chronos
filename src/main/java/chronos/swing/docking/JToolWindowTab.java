@@ -1,25 +1,25 @@
-package chronos.swing;
+package chronos.swing.docking;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ToolWindowTab extends JButton {
+public class JToolWindowTab extends JButton {
     private ActionListener openToolWindowListener;
-    private ToolWindowBar.Side side;
-    public ToolWindowTab(String text) {
+    private JToolWindowBar.Side side;
+    public JToolWindowTab(String text) {
         super(text);
         setUI(new ChrButtonUI());
         setContentAreaFilled(false);
         setOpaque(false);
     }
 
-    public ToolWindowBar.Side getSide() {
+    public JToolWindowBar.Side getSide() {
         return side;
     }
 
-    public void setSide(ToolWindowBar.Side side) {
+    public void setSide(JToolWindowBar.Side side) {
         this.side = side;
     }
 
@@ -63,7 +63,7 @@ public class ToolWindowTab extends JButton {
             );
             g2d.fillRect(0, 0, c.getWidth(), c.getHeight());
             g2d.setColor(Color.WHITE);
-            if(side != ToolWindowBar.Side.Bottom)
+            if(side != JToolWindowBar.Side.Bottom)
                 g2d.rotate(Math.PI / 2);
 
             g2d.setColor(UIManager.getColor("Button.foreground"));
@@ -71,7 +71,7 @@ public class ToolWindowTab extends JButton {
             if(model.isPressed() || model.isArmed())
                 g2d.setColor(UIManager.getColor("Button.pressedForeground"));
 
-            if(side != ToolWindowBar.Side.Bottom)
+            if(side != JToolWindowBar.Side.Bottom)
                 g2d.drawString(text, 4 * padding, -padding*2);
             else {
                 FontMetrics fm = c.getFontMetrics(c.getFont());
@@ -86,7 +86,7 @@ public class ToolWindowTab extends JButton {
             FontMetrics fm = c.getFontMetrics(c.getFont());
             AbstractButton button = (AbstractButton) c;
 
-            if(side != ToolWindowBar.Side.Bottom) {
+            if(side != JToolWindowBar.Side.Bottom) {
                 return new Dimension(fm.getHeight() + 2 * padding, fm.stringWidth(button.getText()) + 8 * padding);
             }
             else {

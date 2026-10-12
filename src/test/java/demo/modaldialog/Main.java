@@ -2,7 +2,7 @@ package demo.modaldialog;
 
 import javax.swing.*;
 
-import chronos.swing.ModalDialog;
+import chronos.swing.JModalDialog;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import demo.LoremIpsum;
 
@@ -20,7 +20,7 @@ class Main {
             JButton showDialog = new JButton("Show Dialog");
             {
                 showDialog.addActionListener(e -> {
-                    ModalDialog dialog = new ModalDialog();
+                    JModalDialog dialog = new JModalDialog();
                     dialog.showDialog(
                             "My Dialog",
                             true,

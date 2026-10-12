@@ -19,8 +19,10 @@ public class ToolWindowBorder extends AbstractBorder {
 
     @Override
     public Insets getBorderInsets(Component c) {
-        if(!toolWindow.isActive()) return new Insets(0, 0, 0, 0);
-        return new Insets(c.getFontMetrics(c.getFont()).getAscent() + resizeMargin + 2 * margin, resizeMargin, resizeMargin, resizeMargin);
+        Font font = c.getFont();
+        if(c.getFont() == null)
+            font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[0];
+        return new Insets(c.getFontMetrics(font).getAscent() + resizeMargin + 2 * margin, resizeMargin, resizeMargin, resizeMargin);
     }
 
     @Override
@@ -53,9 +55,14 @@ public class ToolWindowBorder extends AbstractBorder {
                 RenderingHints.VALUE_FRACTIONALMETRICS_ON
         );
 
+        Color textColor = UIManager.getColor("InternalFrame.activeTitleForeground");
 
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(textColor);
         HiDPIUtils.drawStringWithYCorrection(toolWindow, g2d, toolWindow.getTitle(), margin, h + margin);
+
+        Color outlineColor = UIManager.getColor("TabbedPane.light");
+        g2d.setColor(outlineColor);
+        g2d.drawRect(x, y, c.getWidth(), c.getHeight());
 
 
     }

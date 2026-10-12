@@ -21,7 +21,7 @@ public class JToolWindow extends JComponent {
 
     public JToolWindow(String name) {
         this.name = name;
-        tab = new JToolWindowTab(name);
+        tab = new JToolWindowTab(name, this);
         setBorder(new ToolWindowBorder(this, resizeMargin));
 
 

@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 public class JToolWindowTab extends JButton {
     private ActionListener openToolWindowListener;
     private JToolWindowBar.Side side;
-    public JToolWindowTab(String text) {
+    private JToolWindow toolWindow;
+    public JToolWindowTab(String text, JToolWindow toolWindow) {
         super(text);
-        setUI(new ChrButtonUI());
+        this.toolWindow = toolWindow;
+        setUI(new ToolWindowTabUI());
         setContentAreaFilled(false);
         setOpaque(false);
     }
@@ -31,7 +33,7 @@ public class JToolWindowTab extends JButton {
         this.openToolWindowListener = openToolWindowListener;
     }
 
-    private class ChrButtonUI extends BasicButtonUI {
+    private class ToolWindowTabUI extends BasicButtonUI {
         private int padding = 2;
 
 
@@ -41,14 +43,18 @@ public class JToolWindowTab extends JButton {
             AbstractButton button = (AbstractButton) c;
             String text = button.getText();
             ButtonModel model = button.getModel();
-            g2d.setColor(UIManager.getColor("Button.background"));
 
-            if(model.isRollover()) g2d.setColor(UIManager.getColor("Button.hoverBackground"));
-            if(model.isPressed() || model.isArmed())
-                g2d.setColor(UIManager.getColor("Button.pressedBackground"));
+            Color backgroundColor = toolWindow.isActive() ? UIManager.getColor("TabbedPane.light") : UIManager.getColor("TabbedPane.background");
+            Color foregroundColor = UIManager.getColor("TabbedPane.foreground");
+
+            if(model.isRollover()) {
+                backgroundColor = UIManager.getColor("TabbedPane.light");
+            }
 
 
+            g2d.setColor(backgroundColor);
 
+            //Hints
             g2d.setRenderingHint(
                     RenderingHints.KEY_TEXT_ANTIALIASING,
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON
@@ -66,10 +72,9 @@ public class JToolWindowTab extends JButton {
             if(side != JToolWindowBar.Side.Bottom)
                 g2d.rotate(Math.PI / 2);
 
-            g2d.setColor(UIManager.getColor("Button.foreground"));
-            if(model.isRollover()) g2d.setColor(UIManager.getColor("Button.hoverForeground"));
-            if(model.isPressed() || model.isArmed())
-                g2d.setColor(UIManager.getColor("Button.pressedForeground"));
+
+            g2d.setColor(foregroundColor);
+
 
             if(side != JToolWindowBar.Side.Bottom)
                 g2d.drawString(text, 4 * padding, -padding*2);

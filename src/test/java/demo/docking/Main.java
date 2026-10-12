@@ -4,7 +4,7 @@ import chronos.swing.*;
 import chronos.swing.docking.JToolWindow;
 import chronos.swing.docking.JToolWindowBar;
 import chronos.swing.docking.JToolWindowDock;
-import chronos.swing.docking.ToolWindowDockState;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import demo.LoremIpsum;
 
@@ -17,7 +17,7 @@ class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            FlatMacDarkLaf.setup();
+            FlatLightLaf.setup();
 
             JFrame frame = new JFrame("xc1-tool");
             frame.setLayout(new BorderLayout());
@@ -111,20 +111,9 @@ class Main {
 
 
             frame.setContentPane(dock);
-            frame.addWindowListener(new WindowAdapter(){
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    ToolWindowDockState toolWindowDockState = dock.getToolWindowDockState();
-
-                    System.out.println();
-
-
-
-                }
-            });
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(600, 400);
+            frame.setSize(1000, 600);
             frame.setVisible(true);
         });
 

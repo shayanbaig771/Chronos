@@ -30,20 +30,4 @@ public class JToolWindowDock extends JPanel {
         return bottom;
     }
 
-    public ToolWindowDockState getToolWindowDockState() {
-
-
-        ToolWindowDockState dockState = new ToolWindowDockState();
-
-        JToolWindowBar[] toolWindowBars = {left, right, bottom};
-
-        for(JToolWindowBar toolWindowBar : toolWindowBars) {
-            for(JToolWindow toolWindow : toolWindowBar.getToolWindows()) {
-
-                ToolWindowDockState.ToolWindowState toolWindowState = new ToolWindowDockState.ToolWindowState(toolWindowBar.getSide(), toolWindow.getPreferredSize());
-                dockState.getToolWindowStates().put(toolWindow.getTitle(), toolWindowState);
-            }
-        }
-        return dockState;
-    }
 }
